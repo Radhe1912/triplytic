@@ -1,0 +1,36 @@
+# ------------------------------
+# Node / React (frontend)
+# ------------------------------
+/triplytic-frontend/node_modules/
+/triplytic-frontend/dist/
+/triplytic-frontend/.env
+/triplytic-frontend/.vite
+/triplytic-frontend/package-lock.json
+
+# Byte-compiled / cache
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+
+# Virtual environments
+triplytic_backend/venv/
+mcp_server/venv/
+
+# Django / general Python
+triplytic_backend/*.sqlite3
+triplytic_backend/db.sqlite3
+triplytic_backend/.env
+triplytic_backend/*.log
+triplytic_backend/media/
+triplytic_backend/staticfiles/
+
+# MCP Server
+mcp_server/__pycache__/
+mcp_server/.env
+mcp_server/*.log
+
+.vscode/
+*.code-workspace
+
+.DS_Store
+Thumbs.db
