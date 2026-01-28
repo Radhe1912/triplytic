@@ -1,0 +1,274 @@
+.payment-container {
+    min-height: 100vh;
+    background: linear-gradient(-45deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 12s ease infinite;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.payment-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.15) 0%, transparent 40%),
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='25' cy='25' r='2'/%3E%3Ccircle cx='75' cy='75' r='1.5'/%3E%3C/g%3E%3C/svg%3E");
+    animation: floatParticles 20s linear infinite;
+}
+
+@keyframes floatParticles {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+    }
+}
+
+.payment-summary {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 3rem 2.5rem;
+    border-radius: 32px;
+    box-shadow: 0 35px 70px rgba(0, 0, 0, 0.3);
+    margin-bottom: 2.5rem;
+    max-width: 850px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.payment-summary::before {
+    content: '💳';
+    position: absolute;
+    top: -25px;
+    right: -25px;
+    font-size: 3.5rem;
+    animation: bounce 3s infinite;
+    z-index: 0;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    40% {
+        transform: translateY(-15px) rotate(5deg);
+    }
+
+    60% {
+        transform: translateY(-8px) rotate(-3deg);
+    }
+}
+
+.payment-summary>* {
+    position: relative;
+    z-index: 1;
+}
+
+.payment-summary h3 {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2.25rem;
+    font-weight: 900;
+    text-align: center;
+    margin: 0 0 2rem 0;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
+.payment-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.payment-details>div {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(15px);
+    padding: 1.5rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.payment-details>div:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.payment-details h3 {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem 0;
+    font-weight: 800;
+}
+
+.payment-details h4 {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2rem;
+    font-weight: 900;
+    text-align: center;
+    margin: 1rem 0 0 0;
+    text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+}
+
+.payment-details p {
+    margin: 0;
+    color: #f8fafc;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.stripe-container {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 3rem 2.5rem;
+    border-radius: 32px;
+    box-shadow: 0 35px 70px rgba(0, 0, 0, 0.3);
+    max-width: 850px;
+    width: 100%;
+    position: relative;
+}
+
+.stripe-container::before {
+    content: '🔒';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.5rem;
+    z-index: 0;
+}
+
+.stripe-container>* {
+    position: relative;
+    z-index: 1;
+}
+
+.pay-btn {
+    width: 100%;
+    padding: 1.75rem 2rem;
+    background: linear-gradient(145deg, #ec4899 0%, #db2777 50%, #be185d 100%);
+    color: white;
+    border: none;
+    border-radius: 28px;
+    font-size: 1.375rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 25px 50px rgba(236, 72, 153, 0.5);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 1.5rem;
+}
+
+.pay-btn::before {
+    content: '💳 Pay Now';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pay-btn:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.pay-btn:hover:not(:disabled) {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 40px 80px rgba(236, 72, 153, 0.7);
+}
+
+.pay-btn:active:not(:disabled) {
+    transform: translateY(-3px) scale(1.02);
+}
+
+.pay-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.security-badge {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(34, 197, 94, 0.2);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    border-radius: 16px;
+    color: #22c55e;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .payment-container {
+        padding: 1.5rem 1rem;
+    }
+
+    .payment-summary,
+    .stripe-container {
+        padding: 2.5rem 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .payment-summary,
+    .stripe-container {
+        padding: 2rem 1.5rem;
+    }
+
+    .payment-summary h3 {
+        font-size: 1.75rem;
+    }
+}

@@ -1,41 +1,43 @@
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import api from "../api/api";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import "../styles/Payment.css";
 
 const stripePromise = loadStripe(
     import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
 );
 
-function CheckoutForm({ bookingId }) {
+function CheckoutForm({ bookingData }) {
     const stripe = useStripe();
     const elements = useElements();
-    const [paymentId, setPaymentId] = useState(null);
-
-    useEffect(() => {
-        async function init() {
-            const res = await api.post("/payments/create/", { booking_id: bookingId });
-            setPaymentId(res.data.payment_id);
-        }
-        init();
-    }, []);
+    const navigate = useNavigate();
 
     const pay = async () => {
-        await stripe.confirmPayment({
+        if (!stripe || !elements) return;
+
+        const { error } = await stripe.confirmPayment({
             elements,
-            confirmParams: { return_url: "http://localhost:5173/dashboard" },
-            redirect: "if_required"
+            redirect: "if_required",
         });
 
-        await api.post("/payments/confirm/", { payment_id: paymentId });
-        alert("Payment successful");
+        if (error) {
+            alert(error.message);
+            return;
+        }
+
+        navigate("/invoice", {
+            state: {
+                bookingData,
+            },
+        });
     };
 
     return (
         <div>
             <PaymentElement />
-            <button onClick={pay}>Pay</button>
+            <button className="pay-btn" onClick={pay}>Pay</button>
         </div>
     );
 }
@@ -46,7 +48,9 @@ export default function Payment() {
 
     useEffect(() => {
         async function getSecret() {
-            const res = await api.post("/payments/create/", { booking_id: state.bookingId });
+            const res = await api.post("/payments/create/", {
+                booking_id: state.bookingId,
+            });
             setClientSecret(res.data.client_secret);
         }
         getSecret();
@@ -54,9 +58,40 @@ export default function Payment() {
 
     return (
         clientSecret && (
-            <Elements stripe={stripePromise} options={{ clientSecret }}>
-                <CheckoutForm bookingId={state.bookingId} />
-            </Elements>
+            <div className="payment-container">
+                <div className="payment-summary">
+                    <h3>Payment Details</h3>
+                    <div className="payment-details">
+                        <p><strong>Booking:</strong> {state.bookingType}</p>
+                        <div>
+                            {state.bookingType === "HOTEL" ? (
+                                <h3>Hotel: {state.item.title}</h3>
+                            ) : (
+                                <h3>Flight: {state.item.title}</h3>
+                            )}
+                        </div>
+                        <p>
+                            {state.bookingType === "HOTEL"
+                                ? `Check-in: ${state.check_in} | Check-out: ${state.check_out}`
+                                : `Date: ${state.travel_date}`
+                            }
+                        </p>
+                        <p>Unit Price: ₹{Number(state.item.unitPrice).toFixed(2)}</p>
+                        {state.bookingType === "HOTEL" ? (
+                            <p>Rooms: {state.rooms} | Nights: {state.nights}</p>
+                        ) : (
+                            <p>Passengers: {state.passengers}</p>
+                        )}
+                        <h4>Total Payable: ₹{Number(state.totalAmount).toFixed(2)}</h4>
+                    </div>
+                </div>
+
+                <div className="stripe-container">
+                    <Elements stripe={stripePromise} options={{ clientSecret }}>
+                        <CheckoutForm bookingData={state} />
+                    </Elements>
+                </div>
+            </div>
         )
     );
 }
