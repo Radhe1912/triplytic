@@ -35,6 +35,7 @@ export default function Invoice() {
         doc.text("Smart Travel Booking Platform", 14, 28);
 
         doc.text(`Invoice Date: ${new Date().toLocaleDateString()}`, 150, 20);
+        doc.text(`${bookingType === "HOTEL" ? `Check In: ${check_in} | Check Out: ${check_out}` : `Travel Date: ${travel_date}`}`, bookingType==="HOTEL" ? 120 : 150, 25);
         doc.text(`Mobile: ${state.bookingData.mobile || "N/A"}`, 150, 30);
 
         doc.setFontSize(14);
@@ -145,9 +146,6 @@ export default function Invoice() {
             <div className="invoice-card">
                 <div className="invoice-header">
                     <h1 className="invoice-title">Booking Confirmation</h1>
-                    <p style={{ color: '#6b7280', fontSize: '1.1rem', margin: 0 }}>
-                        Booking ID: #{bookingId}
-                    </p>
                 </div>
 
                 {bookingType === "HOTEL" ? (

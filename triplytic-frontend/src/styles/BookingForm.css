@@ -173,6 +173,23 @@
     transform: translateY(-1px);
 }
 
+.logout-btn {
+    padding: 0.5rem 1rem;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.submit-btn.disabled, .submit-btn.disabled:hover, .submit-btn.disabled:active {
+    cursor: not-allowed;
+    background: rgba(139, 92, 246, 0.5);
+}
+
 /* MOBILE RESPONSIVENESS */
 @media (max-width: 768px) {
     .booking-form {

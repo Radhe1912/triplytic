@@ -12,6 +12,7 @@ export default function Register() {
     const register = async () => {
         try {
             await api.post("/users/register/", { email, password });
+            alert("Account created successfully! Please log in.");
             navigate("/");
         }
         catch (error) {

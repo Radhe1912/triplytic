@@ -6,6 +6,9 @@
     position: relative;
     overflow: hidden;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @keyframes gradientShift {
@@ -36,7 +39,7 @@
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(25px);
     border: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 3rem 2.5rem;
+    padding: 1rem 1rem;
     border-radius: 24px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
     width: 100%;
@@ -44,19 +47,6 @@
     text-align: center;
     position: relative;
     z-index: 1;
-}
-
-.login-form::before {
-    content: '🛫';
-    position: absolute;
-    top: -35px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 3rem;
-    background: linear-gradient(135deg, #ff6b6b, #feca57);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
 .login-form h2 {
@@ -76,6 +66,7 @@
     border: 2px solid transparent;
     border-radius: 16px;
     font-size: 1rem;
+    margin: 5px 0;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-sizing: border-box;
 }
