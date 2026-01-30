@@ -1,9 +1,8 @@
 Django>=4.2
 gunicorn
-requests
 python-dotenv
 django-cors-headers
-whitenoise
-psycopg2-binary
 dj-database-url
-corsheaders
+psycopg2-binary
+requests
+stripe

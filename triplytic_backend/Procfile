@@ -1,0 +1,1 @@
+web: gunicorn triplytic_backend.wsgi:application
